@@ -5,8 +5,8 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "mono:pixelsize=16:antialias=true:autohint=true";
-static char *font2[] = { "Inconsolata for Powerline:pixelsize=16:antialias=true:autohint=true" };
+static char *font = "mono:pixelsize=11:antialias=true:autohint=true";
+static char *font2[] = { "Inconsolata for Powerline:pixelsize=11:antialias=true:autohint=true" };
 static int borderpx = 2;
 
 /*
@@ -84,31 +84,34 @@ char *termname = "st-256color";
 unsigned int tabspaces = 8;
 
 /* bg opacity */
-float alpha = 0.92;
+float alpha = 0.6;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-	"#282828", /* hard contrast: #1d2021 / soft contrast: #32302f */
-	"#cc241d",
-	"#98971a",
-	"#d79921",
-	"#458588",
-	"#b16286",
-	"#689d6a",
-	"#a89984",
-	"#928374",
-	"#fb4934",
-	"#b8bb26",
-	"#fabd2f",
-	"#83a598",
-	"#d3869b",
-	"#8ec07c",
-	"#ebdbb2",
+
+	//kasugano colors
+	"#3d3d3d",
+	"#6673bf",
+	"#3ea290",
+	"#b0ead9",
+	"#31658c",
+	"#596169",
+	"#8292b2",
+	"#c8cacc",
+	//bright colors
+	"#4d4d4d",
+	"#899aff",
+	"#52ad91",
+	"#98c9bb",
+	"#477ab3",
+	"#7882bf",
+	"#95a7cc",
+	"#edeff2",
 	[255] = 0,
-	/* more colors can be added after 255 to use with DefaultXX */
-	"#282828",   /* 256 -> bg */
-	"#ebdbb2",   /* 257 -> fg */
-	"#add8e6", /* 258 -> cursor */
+	// more colors can be added after 255 to use with DefaultXX
+	"#1b1b1b", //bg
+	"#ffffff", //fg
+	"#ffffff", //cursor
 };
 
 
@@ -201,6 +204,7 @@ static MouseShortcut mshortcuts[] = {
 /* Internal keyboard shortcuts. */
 #define MODKEY Mod1Mask
 #define TERMMOD (Mod1Mask|ShiftMask)
+#define SPECIALMOD (ControlMask|ShiftMask)
 
 MouseKey mkeys[] = {
 	/* button               mask            function        argument */
@@ -213,11 +217,11 @@ MouseKey mkeys[] = {
 };
 
 static char *openurlcmd[] = { "/bin/sh", "-c",
-    "sed 's/.*│//g' | tr -d '\n' | grep -aEo '(((http|https)://|www\\.)[a-zA-Z0-9.]*[:]?[a-zA-Z0-9./&%?#=_-]*)|((magnet:\\?xt=urn:btih:)[a-zA-Z0-9]*)'| uniq | sed 's/^www./http:\\/\\/www\\./g' | dmenu -i -p 'Follow which url?' -l 10 | xargs -r xdg-open",
+    "sed 's/.*│//g' | tr -d '\n' | grep -aEo '(((http|https)://|www\\.)[a-zA-Z0-9.]*[:]?[a-zA-Z0-9./&%?=_-]*)|((magnet:\\?xt=urn:btih:)[a-zA-Z0-9]*)'| uniq | sed 's/^www./http:\\/\\/www\\./g' | dmenu -i -p 'Follow which url?' -l 10 | xargs -r xdg-open",
     "externalpipe", NULL };
 
 static char *copyurlcmd[] = { "/bin/sh", "-c",
-    "sed 's/.*│//g' | tr -d '\n' | grep -aEo '(((http|https)://|www\\.)[a-zA-Z0-9.]*[:]?[a-zA-Z0-9./&%?#=_-]*)|((magnet:\\?xt=urn:btih:)[a-zA-Z0-9]*)' | uniq | sed 's/^www./http:\\/\\/www\\./g' | dmenu -i -p 'Copy which url?' -l 10 | tr -d '\n' | xclip -selection clipboard",
+    "sed 's/.*│//g' | tr -d '\n' | grep -aEo '(((http|https)://|www\\.)[a-zA-Z0-9.]*[:]?[a-zA-Z0-9./&%?=_-]*)|((magnet:\\?xt=urn:btih:)[a-zA-Z0-9]*)' | uniq | sed 's/^www./http:\\/\\/www\\./g' | dmenu -i -p 'Copy which url?' -l 10 | tr -d '\n' | xclip -selection clipboard",
     "externalpipe", NULL };
 
 static char *copyoutput[] = { "/bin/sh", "-c", "st-copyout", "externalpipe", NULL };
@@ -232,17 +236,17 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_Next,        zoom,           {.f = -1} },
 	{ MODKEY,               XK_Home,        zoomreset,      {.f =  0} },
 	{ ShiftMask,            XK_Insert,      clippaste,      {.i =  0} },
-	{ MODKEY,               XK_c,           clipcopy,       {.i =  0} },
-	{ MODKEY,               XK_v,           clippaste,      {.i =  0} },
-	{ MODKEY,               XK_p,           selpaste,       {.i =  0} },
+	{ SPECIALMOD,           XK_C,           clipcopy,       {.i =  0} },
+	{ SPECIALMOD,           XK_V,           clippaste,      {.i =  0} },
+	{ SPECIALMOD,           XK_P,           selpaste,       {.i =  0} },
 	{ MODKEY,               XK_Num_Lock,    numlock,        {.i =  0} },
-	{ MODKEY,               XK_Control_L,   iso14755,       {.i =  0} },
+	//{ MODKEY,               XK_Control_L,   iso14755,       {.i =  0} },
 	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
 	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
 	{ MODKEY,               XK_Page_Up,     kscrollup,      {.i = -1} },
 	{ MODKEY,               XK_Page_Down,   kscrolldown,    {.i = -1} },
-	{ MODKEY,               XK_k,           kscrollup,      {.i =  1} },
-	{ MODKEY,               XK_j,           kscrolldown,    {.i =  1} },
+	{ TERMMOD,              XK_K,           kscrollup,      {.i =  1} },
+	{ TERMMOD,              XK_J,           kscrolldown,    {.i =  1} },
 	{ MODKEY,               XK_Up,          kscrollup,      {.i =  1} },
 	{ MODKEY,               XK_Down,        kscrolldown,    {.i =  1} },
 	{ MODKEY,               XK_u,           kscrollup,      {.i = -1} },
