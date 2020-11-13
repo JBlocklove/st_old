@@ -133,9 +133,10 @@ static const char *colorname[] = {
 	"#edeff2",
 	[255] = 0,
 	// more colors can be added after 255 to use with DefaultXX
+	"#ffffff", //cursor
+	"#777777", //rev cursor
 	"#1b1b1b", //bg
 	"#ffffff", //fg
-	"#ffffff", //cursor
 };
 
 
