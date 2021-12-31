@@ -107,37 +107,37 @@ char *termname = "st-256color";
 unsigned int tabspaces = 8;
 
 /* bg opacity */
-float alpha = 0.8;
+float alpha = 0.6;
 float alphaOffset = 0.0;
 float alphaUnfocus;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
 
-	//kasugano colors
-	"#3d3d3d",
-	"#6673bf",
-	"#3ea290",
-	"#b0ead9",
-	"#31658c",
-	"#596169",
-	"#8292b2",
-	"#c8cacc",
+	//moonlight colors
+	"#212337",
+	"#ff757f",
+	"#2df4c0",
+	"#ffc777",
+	"#04d1f9",
+	"#b4a4f4",
+	"#b994f1",
+	"#a1abe0",
 	//bright colors
-	"#4d4d4d",
-	"#899aff",
-	"#52ad91",
-	"#98c9bb",
-	"#477ab3",
-	"#7882bf",
-	"#95a7cc",
-	"#edeff2",
+	"#303250",
+	"#f67f81",
+	"#6bf1ce",
+	"#ffdca9",
+	"#7de5f9",
+	"#d4c1f4",
+	"#ecb2f0",
+	"#eeffff",
 	[255] = 0,
 	// more colors can be added after 255 to use with DefaultXX
 	"#ffffff", //cursor
 	"#777777", //rev cursor
-	"#1b1b1b", //bg
-	"#ffffff", //fg
+	"#212337", //bg
+	"#e4f3fa", //fg
 };
 
 
@@ -245,14 +245,6 @@ static MouseShortcut mshortcuts[] = {
 #define MODKEY Mod1Mask
 #define TERMMOD (Mod1Mask|ShiftMask)
 #define SPECIALMOD (ControlMask|ShiftMask)
-
-MouseKey mkeys[] = {
-	/* button               mask            function        argument */
-	{ Button4,              XK_NO_MOD,      kscrollup,      {.i =  1} },
-	{ Button5,              XK_NO_MOD,      kscrolldown,    {.i =  1} },
-	{ Button4,              TERMMOD,        zoom,           {.f =  +1} },
-	{ Button5,              TERMMOD,        zoom,           {.f =  -1} },
-};
 
 static char *openurlcmd[] = { "/bin/sh", "-c",
     "sed 's/.*│//g' | tr -d '\n' | grep -aEo '(((http|https)://|www\\.)[a-zA-Z0-9.]*[:]?[a-zA-Z0-9./&%?=_-]*)|((magnet:\\?xt=urn:btih:)[a-zA-Z0-9]*)'| uniq | sed 's/^www./http:\\/\\/www\\./g' | dmenu -i -p 'Follow which url?' -c -l 10 | xargs -r xdg-open",
