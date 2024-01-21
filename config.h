@@ -115,7 +115,8 @@ float alphaUnfocus;
 static const char *colorname[] = {
 
 	//moonlight colors
-	"#212337",
+	//"#212337",
+	"#000000",
 	"#ff757f",
 	"#2df4c0",
 	"#ffc777",

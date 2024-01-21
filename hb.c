@@ -13,8 +13,8 @@
 /*
  * Replace 0 with a list of font features, wrapped in FEATURE macro, e.g.
  * FEATURE('c', 'a', 'l', 't'), FEATURE('d', 'l', 'i', 'g')
- * 
- * Uncomment either one of the 2 lines below. Uncomment the prior to disable (any) font features. Uncomment the 
+ *
+ * Uncomment either one of the 2 lines below. Uncomment the prior to disable (any) font features. Uncomment the
  * latter to enable the (selected) font features.
  */
 
